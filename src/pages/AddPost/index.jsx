@@ -3,17 +3,21 @@ import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import SimpleMDE from 'react-simplemde-editor';
-
+import { useSelector } from 'react-redux';
 import 'easymde/dist/easymde.min.css';
 import styles from './AddPost.module.scss';
+import { selectIsAuth } from '../../redux/slices/auth';
+import { Navigate } from 'react-router-dom';
 
 export const AddPost = () => {
   const imageUrl = '';
+  const isAuth = useSelector(selectIsAuth);
+
   const [value, setValue] = React.useState('');
 
-  const handleChangeFile = () => {};
+  const handleChangeFile = () => { };
 
-  const onClickRemoveImage = () => {};
+  const onClickRemoveImage = () => { };
 
   const onChange = React.useCallback((value) => {
     setValue(value);
@@ -33,6 +37,9 @@ export const AddPost = () => {
     }),
     [],
   );
+  if (!isAuth) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <Paper style={{ padding: 30 }}>
